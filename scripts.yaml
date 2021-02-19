@@ -1,0 +1,261 @@
+rear_lights_on:
+  alias: Rear Outside On
+  sequence:
+  - data:
+      brightness: 128
+      entity_id: light.exercise_room_colonnade
+    service: light.turn_on
+  - data:
+      entity_id: switch.exercise_room_rear_landscape
+    service: switch.turn_on
+  mode: single
+rear_lights_off:
+  alias: Rear Outside Off
+  sequence:
+  - data:
+      entity_id: light.exercise_room_colonnade
+    service: light.turn_off
+  - data:
+      entity_id: switch.exercise_room_rear_landscape
+    service: switch.turn_off
+  mode: single
+cook:
+  alias: Cook
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_kitchen_prep
+  - data:
+      entity_id: switch.kitchen_blower
+    entity_id: switch.kitchen_blower
+    service: switch.turn_on
+office_room_on:
+  alias: Office Room On
+  mode: single
+  sequence:
+  - data:
+      brightness: 191
+      entity_id: light.office_recessed
+    service: light.turn_on
+office_room_off:
+  alias: Office Room Off
+  mode: single
+  sequence:
+  - data:
+      entity_id: light.office_recessed
+    service: light.turn_off
+  - data:
+      entity_id: switch.office_lamp
+    entity_id: switch.office_lamp
+    service: switch.turn_off
+office_work:
+  alias: Office Work
+  mode: single
+  sequence:
+  - data:
+      brightness: 89
+      entity_id: light.office_recessed
+    service: light.turn_on
+  - data:
+      entity_id: switch.office_lamp
+    entity_id: switch.office_lamp
+    service: switch.turn_on
+downstairs_bath_off:
+  alias: Downstairs Bath Off
+  mode: single
+  sequence:
+  - data:
+      entity_id: light.downstairs_bath_vanity
+    entity_id: light.downstairs_bath_vanity
+    service: light.turn_off
+  - data:
+      entity_id: switch.downstairs_bath_fan
+    entity_id: switch.downstairs_bath_bath_fan
+    service: switch.turn_off
+  - data:
+      entity_id: switch.downstairs_bath_shower_light
+    entity_id: switch.downstairs_bath_shower_light
+    service: switch.turn_off
+all_art_on:
+  alias: All Art On
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_main_area_art
+  - scene: scene.living_room_enclosure_device_001_master_suite_art
+  - scene: scene.living_room_enclosure_device_001_downstairs_art
+  - data:
+      entity_id: light.stairway_stairway
+    entity_id: light.stairway_stairway
+    service: light.turn_on
+upstairs_art_on:
+  alias: Upstairs Art On
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_main_area_art
+  - scene: scene.living_room_enclosure_device_001_master_suite_art
+all_accent_on:
+  alias: All Accent On
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_main_area_accent
+  - scene: scene.living_room_enclosure_device_001_master_suite_accent
+  - scene: scene.living_room_enclosure_device_001_downstairs_accent
+upstairs_accent_on:
+  alias: Upstairs Accent On
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_main_area_accent
+  - scene: scene.living_room_enclosure_device_001_master_suite_accent
+lets_read:
+  alias: Lets Read
+  mode: single
+  sequence:
+  - service: script.kate_read
+  - scene: scene.living_room_enclosure_device_001_rich_read
+downstairs_all_off:
+  alias: Downstairs All Off
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_downstairs_off
+  - data:
+      entity_id: switch.office_lamp
+    entity_id: switch.office_lamp
+    service: switch.turn_off
+  - data:
+      entity_id: switch.guest_room_lamp
+    entity_id: switch.guest_room_lamps
+    service: switch.turn_off
+house_all_off:
+  alias: House All Off
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_all_off
+  - data:
+      entity_id: switch.office_lamp
+    entity_id: switch.office_lamp
+    service: switch.turn_off
+  - data:
+      entity_id: switch.guest_room_lamps
+    entity_id: switch.guest_room_lamps
+    service: switch.turn_off
+  - data:
+      entity_id: switch.kates_lamp
+    entity_id: switch.kates_lamp
+    service: switch.turn_off
+front_outside_on:
+  alias: Front Outside On
+  mode: single
+  sequence:
+  - data:
+      entity_id: switch.foyer_front_landscape
+    entity_id: switch.foyer_front_landscape
+    service: switch.turn_on
+  - data:
+      entity_id: switch.garage_porch_driveway
+    entity_id: switch.garage_porch_driveway
+    service: switch.turn_on
+front_outside_off:
+  alias: Front Outside Off
+  mode: single
+  sequence:
+  - data:
+      entity_id: switch.foyer_front_landscape
+    entity_id: switch.foyer_front_landscape
+    service: switch.turn_off
+  - data:
+      entity_id: switch.garage_porch_driveway
+    entity_id: switch.garage_porch_driveway
+    service: switch.turn_off
+outside_on:
+  alias: Outside On
+  mode: single
+  sequence:
+  - data:
+      entity_id: script.front_outside_on
+    service: script.front_outside_on
+  - data:
+      entity_id: script.rear_lights_on
+    service: script.rear_lights_on
+outside_off:
+  alias: Outside Off
+  mode: single
+  sequence:
+  - data:
+      entity_id: script.front_outside_off
+    service: script.front_outside_off
+  - data:
+      entity_id: script.rear_lights_off
+    service: script.rear_lights_off
+upstairs_all_off:
+  alias: Upstairs All Off
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_main_area_off
+  - scene: scene.living_room_enclosure_device_001_master_suite_off
+  - data:
+      entity_id: switch.kates_lamp
+    entity_id: switch.kates_lamp
+    service: switch.turn_off
+kate_read:
+  alias: Kate Read
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_kate_read
+  - data:
+      entity_id: switch.kates_lamp
+    entity_id: switch.kates_lamp
+    service: switch.turn_on
+guest_room_all_off:
+  alias: Guest Room Off
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_guest_room_off
+  - data:
+      entity_id: switch.guest_room_lamps
+    entity_id: switch.guest_room_lamps
+    service: switch.turn_off
+sun_room_off:
+  alias: Sun Room Off
+  mode: single
+  sequence:
+  - scene: scene.living_room_enclosure_device_001_sun_room_off
+  - data:
+      entity_id: switch.kates_lamp
+    entity_id: switch.kates_lamp
+    service: switch.turn_off
+start_snapshot:
+  alias: Start Snapshot
+  sequence:
+  - service: hassio.addon_stdin
+    data:
+      addon: 15d21743_samba_backup
+      input: trigger
+  mode: single
+landscape_lights_on:
+  alias: Landscape Lights On
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.exercise_room_rear_landscape
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.foyer_front_landscape
+  mode: single
+landscape_lights_off:
+  alias: Landscape Lights Off
+  sequence:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.exercise_room_rear_landscape
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.foyer_front_landscape
+  mode: single
+test_script:
+  alias: test-script
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness_pct: 10
+      entity_id: light.office_recessed
+    entity_id: light.office_recessed
+  mode: single

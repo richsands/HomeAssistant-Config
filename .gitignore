@@ -1,0 +1,22 @@
+# Ignores everything but YAML configuration.
+# An * ensures that everything will be ignored.
+*
+# Include these files in the repo
+!*.yaml
+!.gitignore
+!*.md
+
+# Ignore these folders.
+.storage
+.cloud
+.google.token
+certificate
+custom_components
+node-red
+tts
+www
+
+# Ensure these YAML files are ignored - they contain secrets/credentials
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml

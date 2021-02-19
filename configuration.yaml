@@ -1,0 +1,88 @@
+homeassistant:
+  # Add entity customizations
+  customize: !include customize.yaml
+
+  # Set up authentication providers - trusted network + login bypass on local network, homeassistant from outside
+  # assuming you have only one non-system user
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - !secret mynetworkprefix
+      allow_bypass_login: true
+    - type: homeassistant
+
+  # Set up MFA
+  auth_mfa_modules:
+    - type: totp
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Set up secure remote access through Cloudflare - use port 8443
+http:
+  server_port: 8443
+  ssl_certificate: /config/certificate/origin.pem
+  ssl_key: /config/certificate/privkey.pem
+
+updater:
+  reporting: true
+  include_used_components: true
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Ignore less severe log messages from lutron integration
+logger:
+  default: info
+  logs:
+    pylutron: error
+    pynetgear: warning
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Netgear Orbi
+device_tracker:
+  - platform: netgear
+    username: !secret orbiaccount
+    password: !secret orbipassword
+    host: !secret orbihost
+    port: 80
+    ssl: false
+    devices:
+      - !secret richiemac
+    accesspoints:
+      - !secret orbiap1
+      - !secret orbiap2
+      - !secret orbiap3
+      - !secret orbiap4
+    interval_seconds: 12
+    consider_home: 60
+    new_device_defaults:
+      track_new_devices: true
+  # Nmap
+  - platform: nmap_tracker
+    hosts: !secret mynetworkprefix
+    interval_seconds: 60
+    home_interval: 2
+    scan_options: " --privileged -sn "
+    exclude:
+      - 192.168.1.4
+    new_device_defaults:
+      track_new_devices: true
+
+# Lutron RadioRa2 Repeater control
+lutron:
+  host: !secret RR2host
+  username: !secret RR2account
+  password: !secret RR2password
