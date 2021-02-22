@@ -77,7 +77,7 @@ device_tracker:
     home_interval: 2
     scan_options: " --privileged -sn "
     exclude:
-      - !secret hahost
+      - !secret myhost
     new_device_defaults:
       track_new_devices: true
 
