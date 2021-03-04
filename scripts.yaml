@@ -251,11 +251,20 @@ landscape_lights_off:
     entity_id: switch.foyer_front_landscape
   mode: single
 test_script:
-  alias: test-script
+  alias: set-sleeping
   sequence:
-  - service: light.turn_on
+  - service: input_select.select_option
     data:
-      brightness_pct: 10
-      entity_id: light.office_recessed
-    entity_id: light.office_recessed
+      option: sleeping
+      entity_id: input_select.sleep_mode
+    entity_id: input_select.sleep_mode
+  mode: single
+set_awake:
+  alias: set-awake
+  sequence:
+  - service: input_select.select_option
+    data:
+      option: awake
+      entity_id: input_select.sleep_mode
+    entity_id: input_select.sleep_mode
   mode: single

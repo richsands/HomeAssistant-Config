@@ -86,3 +86,10 @@ lutron:
   host: !secret RR2host
   username: !secret RR2account
   password: !secret RR2password
+
+# Time of day sensors, sleeping sensor
+binary_sensor:
+  - platform: tod
+    name: Night
+    after: sunset
+    before: sunrise
