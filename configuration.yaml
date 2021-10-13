@@ -73,26 +73,6 @@ scene: !include scenes.yaml
 frontend:
   themes: !include_dir_merge_named themes
 
-# Netgear Orbi
-device_tracker:
-  - platform: netgear
-    username: !secret orbiaccount
-    password: !secret orbipassword
-    host: !secret orbihost
-    port: 80
-    ssl: false
-    devices:
-      - !secret richiemac
-    accesspoints:
-      - !secret orbiap1
-      - !secret orbiap2
-      - !secret orbiap3
-      - !secret orbiap4
-    interval_seconds: 12
-    consider_home: 60
-    new_device_defaults:
-      track_new_devices: true
-
 # Lutron RadioRa2 Repeater control
 lutron:
   host: !secret RR2host
