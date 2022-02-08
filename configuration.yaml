@@ -7,7 +7,9 @@ homeassistant:
   auth_providers:
     - type: trusted_networks
       trusted_networks:
-        - !secret mynetworkprefix
+        - 192.168.1.0/24
+        - 172.16.0.0/16
+        - 127.0.0.1
       allow_bypass_login: true
     - type: homeassistant
 
@@ -18,41 +20,13 @@ homeassistant:
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Set up secure remote access through Cloudflare - use port 8443
+# Set up access through Nginx Proxy Manager addon running on same host as HA
 http:
-  server_port: 8443
-  ssl_certificate: /config/certificate/origin.pem
-  ssl_key: /config/certificate/privkey.pem
   use_x_forwarded_for: true
   trusted_proxies:
-    #cloudflare ipv4
-    - 173.245.48.0/20
-    - 103.21.244.0/22
-    - 103.22.200.0/22
-    - 103.31.4.0/22
-    - 141.101.64.0/18
-    - 108.162.192.0/18
-    - 190.93.240.0/20
-    - 188.114.96.0/20
-    - 197.234.240.0/22
-    - 198.41.128.0/17
-    - 162.158.0.0/15
-    - 172.64.0.0/13
-    - 131.0.72.0/22
-    - 104.16.0.0/13
-    - 104.24.0.0/14
-    #cloudflare ipv6
-    - 2400:cb00::/32
-    - 2606:4700::/32
-    - 2803:f800::/32
-    - 2405:b500::/32
-    - 2405:8100::/32
-    - 2a06:98c0::/29
-    - 2c0f:f248::/32
-
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+    - 127.0.0.1
+    - 172.16.0.0/16 # Add entire internal docker network of addons
+    - 172.30.33.0/24 # Add the IP address of the proxy server for good measure
 
 # Ignore less severe log messages from lutron integration
 logger:
