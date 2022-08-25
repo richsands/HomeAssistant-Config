@@ -27,6 +27,7 @@ http:
   trusted_proxies:
     - 127.0.0.1
     - 172.16.0.0/16 # Add entire internal docker network of addons
+    - 172.30.0.0/16 # Another internal docker network
     - 172.30.33.0/24 # Add the IP address of the proxy server for good measure
 
 # Ignore less severe log messages from lutron integration
