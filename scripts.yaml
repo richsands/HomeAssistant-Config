@@ -268,3 +268,32 @@ set_awake:
       entity_id: input_select.sleep_mode
     entity_id: input_select.sleep_mode
   mode: single
+house_inside_off:
+  alias: House Inside Off
+  sequence:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_enclosure_device_001_main_area_off
+    metadata: {}
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_enclosure_device_001_master_suite_off
+    metadata: {}
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_enclosure_device_001_downstairs_off
+    metadata: {}
+  - data:
+      entity_id: switch.office_lamp
+    entity_id: switch.office_lamp
+    service: switch.turn_off
+  - data:
+      entity_id: switch.guest_room_lamps
+    entity_id: switch.guest_room_lamps
+    service: switch.turn_off
+  - data:
+      entity_id: switch.kates_lamp
+    entity_id: switch.kates_lamp
+    service: switch.turn_off
+  mode: single
+  icon: mdi:script
